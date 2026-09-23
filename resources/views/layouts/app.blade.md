@@ -8,12 +8,10 @@
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    <!-- Iconos de Bootstrap (Recomendado para los bi bi-icons que usas) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    
     <!-- Estilos Personalizados -->
     <style>
         :root {
+            /* Color extraído de ekoa-logo.png */
             --ekoa-green: #B4C936; 
             --ekoa-dark: #333333;
         }
@@ -23,46 +21,16 @@
             color: var(--ekoa-dark);
         }
 
+        /* Clases utilitarias con los colores de la marca */
         .bg-ekoa { background-color: var(--ekoa-green) !important; color: white; }
         .text-ekoa { color: var(--ekoa-green) !important; }
         .btn-ekoa { background-color: var(--ekoa-green); color: white; border: none; font-weight: 600;}
         .btn-ekoa:hover { background-color: #9cb02b; color: white; }
         
+        /* Ajuste del Navbar */
         .navbar-brand img { height: 60px; object-fit: contain; }
         .nav-link { font-weight: 500; color: var(--ekoa-dark); }
         .nav-link:hover { color: var(--ekoa-green); }
-
-
-        @media print {
-        /* Ocultar todo el body por defecto */
-        body * {
-            visibility: hidden;
-        }
-        
-        /* Hacer visible solo el contenedor del certificado y sus hijos */
-        #certificadoPrintable, #certificadoPrintable * {
-            visibility: visible;
-        }
-        
-        /* Posicionar el certificado en la parte superior izquierda de la hoja */
-        #certificadoPrintable {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            padding: 0;
-            margin: 0;
-        }
-
-        /* Quitar los márgenes y sombras del modal para que no ensucie el PDF */
-        .modal, .modal-dialog, .modal-content {
-            box-shadow: none !important;
-            border: none !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            width: 100% !important;
-        }
-    }
     </style>
 </head>
 <body>
@@ -70,6 +38,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
         <div class="container">
+            <!-- Referencia al logo -->
             <a class="navbar-brand" href="{{ url('/') }}">
                 <img src="{{ asset('images/ekoa-logo.png') }}" alt="Logo EKOA">
             </a>
@@ -79,8 +48,8 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url('/recepcion/nuevo') }}">Cargar Comprobante</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#agregar">Contacto</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#nosotros">Cargar Comprobante</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#impacto">Contacto</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contacto">Login</a></li>
                 </ul>
             </div>
@@ -115,8 +84,5 @@
 
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- 💡 CAMBIO CLAVE: Aquí es donde se inyectan los scripts de tus vistas (como Vite) -->
-    @stack('scripts')
 </body>
 </html>
