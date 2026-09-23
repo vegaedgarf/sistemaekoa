@@ -25,17 +25,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class ComprobanteRecepcion extends Model {
     protected $table = 'comprobantes_recepcion';
-    protected $primaryKey = 'numero_comprobante';
-    public $incrementing = false;
-    protected $keyType = 'string';
+    // Laravel asume 'id' autoincremental por defecto
     protected $guarded = [];
 
     public function detalles() {
-        return $this->hasMany(DetalleRecepcion::class, 'numero_comprobante', 'numero_comprobante');
+        return $this->hasMany(DetalleRecepcion::class, 'comprobante_id', 'id');
     }
 
     public function materialesInventario() {
-        return $this->hasMany(MaterialInventario::class, 'numero_comprobante', 'numero_comprobante');
+        return $this->hasMany(MaterialInventario::class, 'comprobante_id', 'id');
     }
 }
 EOF
@@ -48,7 +46,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class DetalleRecepcion extends Model {
     protected $table = 'detalle_recepciones';
-    protected $primaryKey = 'id_detalle';
     protected $guarded = [];
 
     protected $casts = [
@@ -56,7 +53,7 @@ class DetalleRecepcion extends Model {
     ];
 
     public function comprobante() {
-        return $this->belongsTo(ComprobanteRecepcion::class, 'numero_comprobante', 'numero_comprobante');
+        return $this->belongsTo(ComprobanteRecepcion::class, 'comprobante_id', 'id');
     }
 
     public function categoria() {
@@ -64,7 +61,7 @@ class DetalleRecepcion extends Model {
     }
 
     public function inventarios() {
-        return $this->hasMany(MaterialInventario::class, 'id_detalle', 'id_detalle');
+        return $this->hasMany(MaterialInventario::class, 'detalle_id', 'id');
     }
 }
 EOF
@@ -77,17 +74,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class MaterialInventario extends Model {
     protected $table = 'materiales_inventario';
-    protected $primaryKey = 'id_inventario';
-    public $incrementing = false;
-    protected $keyType = 'string';
     protected $guarded = [];
 
     public function comprobante() {
-        return $this->belongsTo(ComprobanteRecepcion::class, 'numero_comprobante', 'numero_comprobante');
+        return $this->belongsTo(ComprobanteRecepcion::class, 'comprobante_id', 'id');
     }
 
     public function detalleRecepcion() {
-        return $this->belongsTo(DetalleRecepcion::class, 'id_detalle', 'id_detalle');
+        return $this->belongsTo(DetalleRecepcion::class, 'detalle_id', 'id');
     }
 
     public function categoria() {

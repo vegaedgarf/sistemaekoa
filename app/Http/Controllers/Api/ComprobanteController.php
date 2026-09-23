@@ -11,7 +11,6 @@ class ComprobanteController extends Controller
 {
     public function store(Request $request)
     {
-        // 1. Validamos 'cedente' tal como lo envía el JavaScript ahora
         $validated = $request->validate([
             'fecha' => 'required|date',
             'cedente' => 'required|string|max:255',
@@ -27,7 +26,6 @@ class ComprobanteController extends Controller
         try {
             DB::beginTransaction();
 
-            // 2. Crear el registro maestro asignando 'cedente' a la columna 'donante'
             $comprobante = ComprobanteRecepcion::create([
                 'fecha' => $validated['fecha'],
                 'cedente' => $validated['cedente'], 
@@ -35,10 +33,10 @@ class ComprobanteController extends Controller
                 'firmas' => $validated['firmas'] ?? null,
             ]);
 
-            // 3. Registrar las líneas de detalle utilizando 'comprobante_id' y capturando el 'id'
+            // Ahora $comprobante->id devolverá el entero autoincremental de MariaDB correctamente
             foreach ($validated['detalles'] as $item) {
                 DetalleRecepcion::create([
-                    'comprobante_id' => $comprobante->id, // Corrección de la clave foránea
+                    'comprobante_id' => $comprobante->id, 
                     'id_categoria' => $item['id_categoria'],
                     'cantidad_recibida' => $item['cantidad_recibida'],
                     'peso_subtotal' => $item['peso_subtotal'] ?? null,
@@ -61,4 +59,7 @@ class ComprobanteController extends Controller
             ], 500);
         }
     }
+
+
+    
 }
