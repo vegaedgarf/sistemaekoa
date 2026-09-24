@@ -38,7 +38,7 @@ return new class extends Migration {
 };
 EOF
 
-# 2. Migración de Comprobante de Recepción (nro_comprobante y cedente)
+# 2. Migración de Comprobante de Recepción (nro_comprobante y datos detallados)
 cat << 'EOF' > $DIR/2026_01_01_000002_create_comprobantes_recepcion_table.php
 <?php
 use Illuminate\Database\Migrations\Migration;
@@ -51,7 +51,12 @@ return new class extends Migration {
             $table->id();
             $table->unsignedInteger('nro_comprobante')->unique();
             $table->date('fecha');
-            $table->string('cedente'); 
+            $table->string('nombre');
+            $table->string('apellido');
+            $table->string('dni')->nullable();
+            $table->string('cuit')->nullable();
+            $table->string('mail_principal')->nullable();
+            $table->string('mail_secundario')->nullable();
             $table->string('firmas')->nullable();
             $table->decimal('peso_total_estimado', 8, 2)->nullable();
             $table->timestamps();
@@ -115,3 +120,4 @@ return new class extends Migration {
 EOF
 
 echo "Migraciones creadas exitosamente en $DIR."
+

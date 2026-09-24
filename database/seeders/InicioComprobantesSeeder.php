@@ -17,9 +17,14 @@ class InicioComprobantesSeeder extends Seeder
         DB::table('comprobantes_recepcion')->insert([
             'nro_comprobante'     => 3560,
             'fecha'               => Carbon::now(),
-            'cedente'             => 'Registro Inicial / Apertura', // Campo obligatorio según tu migración
-            'peso_total_estimado' => 0,
+            'nombre'              => 'Registro Inicial', 
+            'apellido'            => 'Apertura',
+            'dni'                 => '00000000',
+            'cuit'                => '00-00000000-0',
+            'mail_principal'      => 'sistema@local.com',
+            'mail_secundario'     => null,
             'firmas'              => 'N/A',
+            'peso_total_estimado' => 0,
             'created_at'          => now(),
             'updated_at'          => now(),
         ]);
