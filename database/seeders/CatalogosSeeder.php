@@ -9,17 +9,17 @@ class CatalogosSeeder extends Seeder
 {
     public function run(): void
     {
-       // Poblar tabla de Categorías con su letra identificatoria
+       // Poblar tabla de Categorías con su identificador_letra identificatoria
            $categorias = [
-               ['nombre' => 'CPU', 'letra' => 'C'],
-               ['nombre' => 'Notebook', 'letra' => 'N'],
-               ['nombre' => 'Monitor', 'letra' => 'M'],
-               ['nombre' => 'Memoria', 'letra' => 'R'], // R de RAM
-               ['nombre' => 'Motherboard', 'letra' => 'P'], // P de Placa Madre
-               ['nombre' => 'Periféricos Varios', 'letra' => 'V']
+               ['nombre' => 'CPU', 'identificador_letra' => 'C'],
+               ['nombre' => 'Notebook', 'identificador_letra' => 'N'],
+               ['nombre' => 'Monitor', 'identificador_letra' => 'M'],
+               ['nombre' => 'Memoria', 'identificador_letra' => 'R'], // R de RAM
+               ['nombre' => 'Motherboard', 'identificador_letra' => 'P'], // P de Placa Madre
+               ['nombre' => 'Periféricos Varios', 'identificador_letra' => 'V']
            ];
            DB::table('cat_categorias')->insert($categorias);
-        DB::table('cat_estados')->insert([
+       /* DB::table('cat_estados')->insert([
             ['nombre' => 'Funciona'],
             ['nombre' => 'No funciona'],
             ['nombre' => 'En proceso'],
@@ -34,6 +34,6 @@ class CatalogosSeeder extends Seeder
             ['nombre' => 'Donado'],
             ['nombre' => 'Material Didáctico'],
             ['nombre' => 'Disposición Final'],
-        ]);
+        ]);*/
     }
 }

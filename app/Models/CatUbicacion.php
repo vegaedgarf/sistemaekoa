@@ -4,5 +4,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class CatUbicacion extends Model {
     protected $table = 'cat_ubicaciones';
-    protected $guarded = [];
+    protected $guarded = ['id'];
 }

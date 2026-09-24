@@ -4,21 +4,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class DetalleRecepcion extends Model {
     protected $table = 'detalle_recepciones';
-    protected $guarded = [];
-
-    protected $casts = [
-        'requiere_inventario' => 'boolean',
-    ];
-
+    protected $fillable = ['comprobante_id', 'id_categoria', 'cantidad_recibida', 'peso_subtotal', 'requiere_inventario'];
+    
     public function comprobante() {
-        return $this->belongsTo(ComprobanteRecepcion::class, 'comprobante_id', 'id');
+        return $this->belongsTo(ComprobanteRecepcion::class, 'comprobante_id');
     }
-
+    
     public function categoria() {
         return $this->belongsTo(CatCategoria::class, 'id_categoria');
-    }
-
-    public function inventarios() {
-        return $this->hasMany(MaterialInventario::class, 'detalle_id', 'id');
     }
 }
