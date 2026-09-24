@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class ComprobanteController extends Controller
 {
-    public function store(Request $request)
+  public function store(Request $request)
     {
         $validated = $request->validate([
             'fecha' => 'required|date',
@@ -26,14 +26,19 @@ class ComprobanteController extends Controller
         try {
             DB::beginTransaction();
 
+            // 1. Obtener el último número registrado y sumar 1 (o iniciar en 1 si está vacío)
+            $ultimoNro = ComprobanteRecepcion::max('nro_comprobante');
+            $nuevoNro = $ultimoNro ? $ultimoNro + 1 : 1;
+
+            // 2. Insertar usando el número secuencial entero
             $comprobante = ComprobanteRecepcion::create([
+                'nro_comprobante' => $nuevoNro,
                 'fecha' => $validated['fecha'],
                 'cedente' => $validated['cedente'], 
                 'peso_total_estimado' => $validated['peso_total_estimado'] ?? null,
                 'firmas' => $validated['firmas'] ?? null,
             ]);
 
-            // Ahora $comprobante->id devolverá el entero autoincremental de MariaDB correctamente
             foreach ($validated['detalles'] as $item) {
                 DetalleRecepcion::create([
                     'comprobante_id' => $comprobante->id, 
