@@ -9,11 +9,17 @@ use Illuminate\Support\Facades\DB;
 
 class ComprobanteController extends Controller
 {
-  public function store(Request $request)
+    public function store(Request $request)
     {
+        // Actualizamos la validación reemplazando 'cedente' por los campos desglosados
         $validated = $request->validate([
             'fecha' => 'required|date',
-            'cedente' => 'required|string|max:255',
+            'nombre' => 'required|string|max:255',
+            'apellido' => 'required|string|max:255',
+            'dni' => 'nullable|integer',
+            'cuit' => 'nullable|string|max:20',
+            'mail_principal' => 'nullable|email|max:255',
+            'mail_secundario' => 'nullable|email|max:255',
             'peso_total_estimado' => 'nullable|numeric',
             'firmas' => 'nullable|string',
             'detalles' => 'required|array|min:1',
@@ -30,11 +36,16 @@ class ComprobanteController extends Controller
             $ultimoNro = ComprobanteRecepcion::max('nro_comprobante');
             $nuevoNro = $ultimoNro ? $ultimoNro + 1 : 1;
 
-            // 2. Insertar usando el número secuencial entero
+            // 2. Insertar usando el número secuencial entero y los nuevos campos
             $comprobante = ComprobanteRecepcion::create([
                 'nro_comprobante' => $nuevoNro,
                 'fecha' => $validated['fecha'],
-                'cedente' => $validated['cedente'], 
+                'nombre' => $validated['nombre'],
+                'apellido' => $validated['apellido'],
+                'dni' => $validated['dni'] ?? null,
+                'cuit' => $validated['cuit'] ?? null,
+                'mail_principal' => $validated['mail_principal'] ?? null,
+                'mail_secundario' => $validated['mail_secundario'] ?? null,
                 'peso_total_estimado' => $validated['peso_total_estimado'] ?? null,
                 'firmas' => $validated['firmas'] ?? null,
             ]);
@@ -64,7 +75,4 @@ class ComprobanteController extends Controller
             ], 500);
         }
     }
-
-
-    
 }

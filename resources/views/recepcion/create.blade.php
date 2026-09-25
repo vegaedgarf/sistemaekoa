@@ -11,20 +11,18 @@
                 <div class="card-body p-4">
                     <form id="formRecepcion">
                         @csrf
+                        
+                        <!-- Sección: Datos Generales -->
                         <div class="row mb-3">
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <label class="form-label fw-bold">Fecha de Ingreso</label>
-                                <input type="date" class="form-control" name="fecha" value="{{ date('Y-m-d') }}" required>
+                                <input type="date" class="form-control" name="fecha" id="fecha" value="{{ date('Y-m-d') }}" required>
                             </div>
-                            <div class="col-md-3">
-                                <label class="form-label fw-bold">Institución/Organización Cedente</label>
-                                <input type="text" class="form-control" name="cedente" placeholder="Ej: Empresa S.A." required>
-                            </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <label class="form-label fw-bold text-ekoa">Total de Unidades</label>
                                 <input type="number" class="form-control bg-light fw-bold text-ekoa" id="total_unidades" readonly value="0">
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <label class="form-label fw-bold text-ekoa">Peso Total (kg)</label>
                                 <input type="number" step="0.01" class="form-control bg-light fw-bold text-ekoa" name="peso_total_estimado" id="peso_total_estimado" readonly value="0.00">
                             </div>
@@ -32,6 +30,44 @@
 
                         <hr class="my-4">
 
+                        <!-- Sección: Datos del Cedente -->
+                        <h5 class="fw-bold text-secondary mb-3">Datos del Cedente</h5>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="nombre" class="form-label fw-bold">Nombre *</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre de la persona o institución" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="apellido" class="form-label fw-bold">Apellido *</label>
+                                <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido" required>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="dni" class="form-label fw-bold">DNI</label>
+                                <input type="number" class="form-control" id="dni" name="dni" placeholder="Opcional">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="cuit" class="form-label fw-bold">CUIT</label>
+                                <input type="text" class="form-control" id="cuit" name="cuit" placeholder="Opcional">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="mail_principal" class="form-label fw-bold">Email Principal</label>
+                                <input type="email" class="form-control" id="mail_principal" name="mail_principal" placeholder="correo@ejemplo.com">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="mail_secundario" class="form-label fw-bold">Email Secundario</label>
+                                <input type="email" class="form-control" id="mail_secundario" name="mail_secundario" placeholder="Opcional">
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <!-- Sección: Detalle de Materiales -->
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h5 class="fw-bold text-secondary mb-0">Detalle de Materiales Ingresados</h5>
                             <button type="button" class="btn btn-outline-success btn-sm fw-bold" id="btnAgregarFila">
@@ -135,16 +171,25 @@
                     </div>
                     <div class="col-6">
                         <hr style="border-top: 1px solid #000; width: 80%; margin: 0 auto 10px auto;">
-                        <span class="d-block">Firma</span>
+                        <span class="d-block">Firma Cedente</span>
                     </div>
                 </div>
 
                 <div class="mt-5 border border-dark p-3">
                     <h6 class="fw-bold text-center mb-3">Datos de la PERSONA QUE ENTREGA el material al Programa EKOA</h6>
                     <div class="row">
-                        <div class="col-6 mb-3"><strong>Institución/Organización Cedente Transportista:</strong> <br><span class="border-bottom border-dark d-inline-block w-100 mt-2" style="height: 20px;"></span></div>
-                        <div class="col-6 mb-3"><strong>Email:</strong> <br><span class="border-bottom border-dark d-inline-block w-100 mt-2" style="height: 20px;"></span></div>
-                        <div class="col-6"><strong>DNI/CUIT:</strong> <br><span class="border-bottom border-dark d-inline-block w-100 mt-2" style="height: 20px;"></span></div>
+                        <div class="col-6 mb-3">
+                            <strong>Nombre y Apellido:</strong> <br>
+                            <span id="preview_modal_nombre" class="d-inline-block w-100 mt-2" style="border-bottom: 1px solid #000; min-height: 20px;"></span>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <strong>Email:</strong> <br>
+                            <span id="preview_modal_email" class="d-inline-block w-100 mt-2" style="border-bottom: 1px solid #000; min-height: 20px;"></span>
+                        </div>
+                        <div class="col-6">
+                            <strong>DNI/CUIT:</strong> <br>
+                            <span id="preview_modal_doc" class="d-inline-block w-100 mt-2" style="border-bottom: 1px solid #000; min-height: 20px;"></span>
+                        </div>
                     </div>
                 </div>
             </div>
